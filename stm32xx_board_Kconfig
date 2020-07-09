@@ -173,7 +173,23 @@ menu "On-chip Peripheral Drivers"
         bool "Enable OTGFS as USB device"
         select RT_USING_USB_DEVICE
         default n
-   
+        
+    menuconfig BSP_USING_CAN
+        bool "Enable CAN BUS"
+        default n #默认 关闭
+        select RT_USING_CAN
+        //依赖 RT_USING_CAN
+        //在 rtdevice.h 文件中可以找到
+        if BSP_USING_CAN
+            config BSP_USING_CAN1
+                bool "Enable CAN1"
+                default y
+
+            config BSP_USING_CAN2
+                bool "Enable CAN2"
+                default n
+        endif
+    
     source "../libraries/HAL_Drivers/Kconfig"
     
 endmenu
